@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.example.com/glasshouse"
+         xsi:schemaLocation="http://www.example.com/glasshouse glasshouse.xsd">
+    <blooming-flower name="Tsvetok" soil="ground">
+        <origin>Africa</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>salad</leaf-color>
+            <average-size>60</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>12</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>120</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2001-01-01</landing-date>
+        <blossom-color>red</blossom-color>
+        <blossom-period>15</blossom-period>
+    </blooming-flower>
+
+    <evergreen-plant name="Palma" soil="podzolic">
+        <origin>America</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>salad</leaf-color>
+            <average-size>60</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>-5</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>120</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2001-01-01</landing-date>
+        <type>palm</type>
+    </evergreen-plant>
+
+</flowers>
