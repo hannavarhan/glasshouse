@@ -1,5 +1,7 @@
 package com.epam.glasshouse.entity;
 
+import java.util.Objects;
+
 public class Appearance {
     private String stemColor;
     private String leafColor;
@@ -36,6 +38,21 @@ public class Appearance {
 
     public void setAverageSize(int averageSize) {
         this.averageSize = averageSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appearance that = (Appearance) o;
+        return averageSize == that.averageSize &&
+                stemColor.equals(that.stemColor) &&
+                leafColor.equals(that.leafColor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stemColor, leafColor, averageSize);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.epam.glasshouse.parser;
 
 import com.epam.glasshouse.entity.*;
+import com.epam.glasshouse.exception.GlasshouseException;
 import com.epam.glasshouse.handler.PlantXmlTag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,36 +19,42 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
 
-public class PlantDomBuilder {
+public class PlantDomBuilder extends AbstractPlantBuilder {
 
     private final static Logger logger = LogManager.getLogger(PlantDomBuilder.class);
 
-    private HashSet<Plant> plants;
     private DocumentBuilder documentBuilder;
 
     public PlantDomBuilder() {
-        plants = new HashSet<>();
+        super();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             documentBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            logger.error(e.getMessage());
+            logger.error("Error in PlantDomBuilder: " + e.getMessage());
         }
     }
 
+    @Override
     public HashSet<Plant> getPlants() {
         return (HashSet<Plant>) plants.clone();
     }
 
-    public void buildSetPlants(String path) {
+    @Override
+    public void buildSetPlants(String path) throws GlasshouseException {
         Document document;
         try {
             document = documentBuilder.parse(path);
             buildPlantsByElementName(document, PlantXmlTag.BLOOMING_FLOWER);
             buildPlantsByElementName(document, PlantXmlTag.EVERGREEN_PLANT);
-        } catch (IOException | SAXException e) {
-            logger.error("Error in parsePlant method, path: " + path);
+        } catch (SAXException e) {
+            logger.error("Error in dom buildSetPlants:" + e.getMessage());
+            throw new GlasshouseException("Error in dom buildSetPlants", e);
+        } catch (IOException e) {
+            logger.error("Problems with path: " + path + " in dom buildSetPlants");
+            throw new GlasshouseException("Problems with path");
         }
+        logger.info("Plants in buildSetPlants method from dom builder are:\n" + plants);
     }
 
     private void buildPlantsByElementName(Document document, final PlantXmlTag ELEMENT_NAME) {
@@ -74,7 +81,6 @@ public class PlantDomBuilder {
         BloomingFlower flower = new BloomingFlower();
         setPlantCharacteristics(element, flower);
 
-        // add null check (use optional) ans check for default attribute value
         flower.setBlossomColor(getElementTextContent(element, PlantXmlTag.BLOSSOM_COLOR.getTitle()));
         int days = Integer.parseInt(getElementTextContent(element, PlantXmlTag.BLOSSOM_PERIOD.getTitle()));
         Period period = Period.ofDays(days);
@@ -87,7 +93,6 @@ public class PlantDomBuilder {
         EvergreenPlant plant = new EvergreenPlant();
         setPlantCharacteristics(element, plant);
 
-        // add null check (use optional) ans check for default attribute value
         Type type = Type.valueOf(getElementTextContent(element, PlantXmlTag.TYPE.getTitle()).toUpperCase());
         plant.setType(type);
 
@@ -95,9 +100,11 @@ public class PlantDomBuilder {
     }
 
     private void setPlantCharacteristics(Element element, Plant plant) {
-        // add null check (use optional) ans check for default attribute value
         plant.setName(element.getAttribute(PlantXmlTag.NAME.getTitle()));
-        Soil soil = Soil.valueOf(element.getAttribute(PlantXmlTag.SOIL.getTitle()).toUpperCase());
+        Soil soil = Soil.PODZOLIC;
+        if (element.hasAttribute(PlantXmlTag.SOIL.getTitle())) {
+            soil = Soil.valueOf(element.getAttribute(PlantXmlTag.SOIL.getTitle()).toUpperCase());
+        }
         plant.setSoil(soil);
         plant.setOrigin(getElementTextContent(element, PlantXmlTag.ORIGIN.getTitle()));
 

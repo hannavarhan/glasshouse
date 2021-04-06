@@ -24,7 +24,7 @@
             <element name="multiplying" type="tns:Multiplying" default="leaves"/>
             <element name="landing-date" type="date"/>
         </sequence>
-        <attribute name="name" type="tns:Name" use="required" default="Plant name"/>
+        <attribute name="name" type="tns:Name" use="required"/>
         <attribute name="soil" type="tns:Soil" use="optional" default="podzolic"/>
     </complexType>
 

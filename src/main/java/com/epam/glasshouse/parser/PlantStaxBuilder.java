@@ -1,6 +1,7 @@
 package com.epam.glasshouse.parser;
 
 import com.epam.glasshouse.entity.*;
+import com.epam.glasshouse.exception.GlasshouseException;
 import com.epam.glasshouse.handler.PlantXmlTag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,29 +12,29 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
 
-public class PlantStaxBuilder {
+public class PlantStaxBuilder extends AbstractPlantBuilder {
 
-    private final static Logger logger = LogManager.getLogger(PlantDomBuilder.class);
+    private final static Logger logger = LogManager.getLogger(PlantStaxBuilder.class);
 
-    private HashSet<Plant> plants;
     private XMLInputFactory inputFactory;
 
     public PlantStaxBuilder() {
+        super();
         inputFactory = XMLInputFactory.newInstance();
-        plants = new HashSet<>();
     }
 
+    @Override
     public HashSet<Plant> getPlants() {
         return (HashSet<Plant>) plants.clone();
     }
 
-    public void buildSetPlants(String path) {
+    @Override
+    public void buildSetPlants(String path) throws GlasshouseException {
         XMLStreamReader reader;
         String name;
         try (FileInputStream inputStream = new FileInputStream(new File(path))) {
@@ -51,17 +52,19 @@ public class PlantStaxBuilder {
                     }
                 }
             }
-        } catch (XMLStreamException | IOException e) {
-            e.printStackTrace();
+        } catch (XMLStreamException e) {
+            logger.error("Error in stax buildSetPlants:" + e.getMessage());
+            throw new GlasshouseException("Error in sax buildSetPlants", e);
+        } catch (IOException e) {
+            logger.error("Problems with path: " + path + " in stax buildSetPlants");
+            throw new GlasshouseException("Problems with path");
         }
+        logger.info("Plants in buildSetPlants method from stax builder are:\n" + plants);
     }
 
     private BloomingFlower buildBloomingFlower(XMLStreamReader reader) throws XMLStreamException {
         BloomingFlower flower = new BloomingFlower();
-        flower.setName(reader.getAttributeValue(null, PlantXmlTag.NAME.getTitle()));
-        String soilString = reader.getAttributeValue(null, PlantXmlTag.SOIL.getTitle()).toUpperCase();
-        Soil soil = Soil.valueOf(soilString);
-        flower.setSoil(soil);
+        fillAttrValue(flower, reader);
         String name;
         while (reader.hasNext()) {
             int type = reader.next();
@@ -102,16 +105,13 @@ public class PlantStaxBuilder {
                     }
             }
         }
-        throw new XMLStreamException("Unknown element in tag <student>");
+        logger.error("Unknown element in tag <blooming-flower>");
+        throw new XMLStreamException("Unknown element in tag <blooming-flower>");
     }
 
     private EvergreenPlant buildEvergreenPlant(XMLStreamReader reader) throws XMLStreamException {
         EvergreenPlant plant = new EvergreenPlant();
-        plant.setName(reader.getAttributeValue(null, PlantXmlTag.NAME.getTitle()));
-        // add null check (use optional)
-        String soilString = reader.getAttributeValue(null, PlantXmlTag.SOIL.getTitle()).toUpperCase();
-        Soil soil = Soil.valueOf(soilString);
-        plant.setSoil(soil);
+        fillAttrValue(plant, reader);
         String name;
         while (reader.hasNext()) {
             int type = reader.next();
@@ -151,7 +151,18 @@ public class PlantStaxBuilder {
                     }
             }
         }
-        throw new XMLStreamException("Unknown element in tag <student>");
+        logger.error("Unknown element in tag <evergreen-plant>");
+        throw new XMLStreamException("Unknown element in tag <evergreen-plant>");
+    }
+
+    private void fillAttrValue(Plant plant, XMLStreamReader reader) {
+        plant.setName(reader.getAttributeValue(null, PlantXmlTag.NAME.getTitle()));
+        Soil soil = Soil.PODZOLIC;
+        if (reader.getAttributeCount() > 1) {
+            String soilString = reader.getAttributeValue(null, PlantXmlTag.SOIL.getTitle()).toUpperCase();
+            soil = Soil.valueOf(soilString);
+        }
+        plant.setSoil(soil);
     }
 
     private Appearance getXMLAppearance(XMLStreamReader reader) throws XMLStreamException {

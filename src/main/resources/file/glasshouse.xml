@@ -2,22 +2,163 @@
 <flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.example.com/glasshouse"
          xsi:schemaLocation="http://www.example.com/glasshouse glasshouse.xsd">
-    <blooming-flower name="Tsvetok" soil="ground">
-        <origin>Africa</origin>
+    <blooming-flower name="Geraniums">
+        <origin>Mediterranean region</origin>
         <visual-parameters>
             <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>60</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>25</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>589</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2019-01-01</landing-date>
+        <blossom-color>red</blossom-color>
+        <blossom-period>300</blossom-period>
+    </blooming-flower>
+
+    <blooming-flower name="Cyclamen" soil="ground">
+        <origin>Mediterranean region</origin>
+        <visual-parameters>
+            <stem-color>brown</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>25</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>29</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>500</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2020-11-25</landing-date>
+        <blossom-color>pink</blossom-color>
+        <blossom-period>120</blossom-period>
+    </blooming-flower>
+
+    <blooming-flower soil="sod_podzolic" name="Petunia">
+        <origin>South American</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>40</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>18</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>325</irrigation>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <landing-date>2018-08-01</landing-date>
+        <blossom-color>pink, red</blossom-color>
+        <blossom-period>155</blossom-period>
+    </blooming-flower>
+
+    <blooming-flower name="Salvia" soil="ground">
+        <origin>Mexico</origin>
+        <visual-parameters>
+            <stem-color>purple</stem-color>
             <leaf-color>salad</leaf-color>
             <average-size>60</average-size>
         </visual-parameters>
         <growing-tips>
-            <temperature>12</temperature>
+            <temperature>25</temperature>
             <light-loving>true</light-loving>
-            <irrigation>120</irrigation>
+            <irrigation>400</irrigation>
+        </growing-tips>
+        <multiplying>leaves</multiplying>
+        <landing-date>2020-03-31</landing-date>
+        <blossom-color>purple</blossom-color>
+        <blossom-period>320</blossom-period>
+    </blooming-flower>
+
+    <evergreen-plant name="Caladium">
+        <origin>Tropical</origin>
+        <visual-parameters>
+            <stem-color>white</stem-color>
+            <leaf-color>green and red</leaf-color>
+            <average-size>25</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>25</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>200</irrigation>
         </growing-tips>
         <multiplying>seed</multiplying>
-        <landing-date>2001-01-01</landing-date>
+        <landing-date>2017-06-12</landing-date>
+        <type>climbing</type>
+    </evergreen-plant>
+
+    <evergreen-plant soil="sod_podzolic" name="Fern">
+        <origin>Arctic and Antarctic regions</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>40</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>25</temperature>
+            <light-loving>false</light-loving>
+            <irrigation>340</irrigation>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <landing-date>2017-07-02</landing-date>
+        <type>palm</type>
+    </evergreen-plant>
+
+    <evergreen-plant name="Coleus" soil="ground">
+        <origin>Southeast Asia and Malaysia</origin>
+        <visual-parameters>
+            <stem-color>salad</stem-color>
+            <leaf-color>green and orange</leaf-color>
+            <average-size>15</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>17</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>342900</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2019-05-07</landing-date>
+        <type>climbing</type>
+    </evergreen-plant>
+
+    <blooming-flower name="Poinsettia" soil="ground">
+        <origin>Mexico and Central America</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>60</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>20</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>270</irrigation>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <landing-date>2020-08-30</landing-date>
         <blossom-color>red</blossom-color>
-        <blossom-period>15</blossom-period>
+        <blossom-period>40</blossom-period>
+    </blooming-flower>
+
+    <blooming-flower name="GazaniaTreasure" soil="ground">
+        <origin>South Africa</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>20</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>35</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>500</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2020-02-29</landing-date>
+        <blossom-color>red</blossom-color>
+        <blossom-period>55</blossom-period>
     </blooming-flower>
 
     <evergreen-plant name="Palma" soil="podzolic">
@@ -36,5 +177,41 @@
         <landing-date>2001-01-01</landing-date>
         <type>palm</type>
     </evergreen-plant>
+
+    <blooming-flower name="Chrysanthemum">
+        <origin>Mexico and Central America</origin>
+        <visual-parameters>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>15</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>22</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>150</irrigation>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <landing-date>2021-01-30</landing-date>
+        <blossom-color>orange</blossom-color>
+        <blossom-period>70</blossom-period>
+    </blooming-flower>
+
+    <blooming-flower name="Pansies" soil="sod_podzolic">
+        <origin>Iver, Buckinghamshire, England</origin>
+        <visual-parameters>
+            <stem-color>salad</stem-color>
+            <leaf-color>salad</leaf-color>
+            <average-size>30</average-size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>18</temperature>
+            <light-loving>true</light-loving>
+            <irrigation>150</irrigation>
+        </growing-tips>
+        <multiplying>seed</multiplying>
+        <landing-date>2021-01-30</landing-date>
+        <blossom-color>colorful</blossom-color>
+        <blossom-period>250</blossom-period>
+    </blooming-flower>
 
 </flowers>
