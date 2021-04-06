@@ -1,6 +1,9 @@
 package com.epam.glasshouse.handler;
 
 import com.epam.glasshouse.entity.*;
+import com.epam.glasshouse.parser.PlantSaxBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -29,16 +32,10 @@ public class PlantSaxHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attrs) {
         if (PlantXmlTag.BLOOMING_FLOWER.getTitle().equals(qName)) {
             current = new BloomingFlower();
-            current.setName(attrs.getValue(0));
-            if (attrs.getLength() == 2) { // warning!!!!
-                current.setSoil(Soil.valueOf(attrs.getValue(1).toUpperCase()));
-            }
+            fillAttrValue(attrs);
         } else if (PlantXmlTag.EVERGREEN_PLANT.getTitle().equals(qName)) {
             current = new EvergreenPlant();
-            current.setName(attrs.getValue(0));
-            if (attrs.getLength() == 2) { // warning!!!!
-                current.setSoil(Soil.valueOf(attrs.getValue(1).toUpperCase()));
-            }
+            fillAttrValue(attrs);
         } else {
             PlantXmlTag temp = PlantXmlTag.valueOf(qName.toUpperCase().replace("-", "_"));
             if (withText.contains(temp)) {
@@ -102,5 +99,24 @@ public class PlantSaxHandler extends DefaultHandler {
             }
         }
         currentXmlTag = null;
+    }
+
+    private void fillAttrValue(Attributes attrs) {
+        if (attrs.getLength() == 1) {
+            current.setName(attrs.getValue(0));
+            current.setSoil(Soil.PODZOLIC);
+        }
+        if (attrs.getLength() == 2) {
+            String qAttrName0 = attrs.getQName(0);
+            if (qAttrName0.equals(PlantXmlTag.SOIL.getTitle())) {
+                Soil soil = Soil.valueOf(attrs.getValue(0).toUpperCase());
+                current.setSoil(soil);
+                current.setName(attrs.getValue(1));
+            } else {
+                current.setName(attrs.getValue(0));
+                Soil soil = Soil.valueOf(attrs.getValue(1).toUpperCase());
+                current.setSoil(soil);
+            }
+        }
     }
 }

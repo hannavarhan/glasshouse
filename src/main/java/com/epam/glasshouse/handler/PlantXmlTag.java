@@ -1,6 +1,7 @@
 package com.epam.glasshouse.handler;
 
 public enum PlantXmlTag {
+    FLOWERS("flowers"),
     BLOOMING_FLOWER("blooming-flower"),
     EVERGREEN_PLANT("evergreen-plant"),
     NAME("name"),
@@ -25,6 +26,7 @@ public enum PlantXmlTag {
     PlantXmlTag(String title) {
         this.title = title;
     }
+
     public String getTitle() {
         return title;
     }
